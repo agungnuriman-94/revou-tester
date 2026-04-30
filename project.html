@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Expense Tracker</title>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  margin: 0;
+}
+
+.container {
+  max-width: 400px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select, button {
+  padding: 10px;
+}
+
+button {
+  background: blue;
+  color: white;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  background: #eee;
+  padding: 8px;
+}
+
+.delete {
+  color: red;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Expense Tracker</h1>
+
+  <h2>Total: Rp <span id="total">0</span></h2>
+
+  <form id="form">
+    <input type="text" id="name" placeholder="Item Name" required>
+    <input type="number" id="amount" placeholder="Amount" required>
+    <select id="category" required>
+      <option value="">Category</option>
+      <option value="Food">Food</option>
+      <option value="Transport">Transport</option>
+      <option value="Fun">Fun</option>
+    </select>
+    <button type="submit">Add</button>
+  </form>
+
+  <ul id="list"></ul>
+
+  <canvas id="chart"></canvas>
+</div>
+
+<script>
+const form = document.getElementById("form");
+const list = document.getElementById("list");
+const totalEl = document.getElementById("total");
+
+let transactions = JSON.parse(localStorage.getItem("data")) || [];
+
+const ctx = document.getElementById("chart").getContext("2d");
+
+let chart = new Chart(ctx, {
+  type: "pie",
+  data: {
+    labels: ["Food", "Transport", "Fun"],
+    datasets: [{
+      data: [0, 0, 0]
+    }]
+  }
+});
+
+function save() {
+  localStorage.setItem("data", JSON.stringify(transactions));
+}
+
+function updateUI() {
+  list.innerHTML = "";
+
+  let total = 0;
+  let food = 0, transport = 0, fun = 0;
+
+  transactions.forEach((t, index) => {
+    total += t.amount;
+
+    if (t.category === "Food") food += t.amount;
+    if (t.category === "Transport") transport += t.amount;
+    if (t.category === "Fun") fun += t.amount;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${t.name} - Rp${t.amount} (${t.category})
+      <span class="delete" onclick="remove(${index})">X</span>
+    `;
+    list.appendChild(li);
+  });
+
+  totalEl.innerText = total;
+
+  chart.data.datasets[0].data = [food, transport, fun];
+  chart.update();
+}
+
+function remove(index) {
+  transactions.splice(index, 1);
+  save();
+  updateUI();
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const amount = parseInt(document.getElementById("amount").value);
+  const category = document.getElementById("category").value;
+
+  if (!name || !amount || !category) {
+    alert("Isi semua field!");
+    return;
+  }
+
+  transactions.push({ name, amount, category });
+
+  save();
+  updateUI();
+  form.reset();
+});
+
+updateUI();
+</script>
+
+</body>
+</html>
