@@ -123,8 +123,17 @@ let bird = {
 let gravity = 0.5;
 let pipes = [];
 let score = 0;
+let highScore = localStorage.getItem('highScore') || 0;
 let gameOver = false;
 let speed = 2; // 🔥 kecepatan awal
+let lastFireworkScore = 0;
+
+// Day/night cycle
+let isDay = true;
+let lastDayChangeScore = 0;
+
+// Fireworks particles
+let fireworks = [];
 
 // Awan bergerak
 let clouds = [];
@@ -230,22 +239,90 @@ let beachKids = {
 let lavaOffset = 0;
 
 function drawBackground() {
-  // Langit biru
+  // Sky color based on day/night
+  let skyColor1, skyColor2;
+  if (isDay) {
+    skyColor1 = "#87CEEB";
+    skyColor2 = "#B0E0E6";
+  } else {
+    skyColor1 = "#0B1026";
+    skyColor2 = "#1a1a3e";
+  }
+  
+  // Langit
   let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 0.6);
-  gradient.addColorStop(0, "#87CEEB");
-  gradient.addColorStop(1, "#B0E0E6");
+  gradient.addColorStop(0, skyColor1);
+  gradient.addColorStop(1, skyColor2);
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height * 0.6);
   
-  // Awan bergerak
-  ctx.fillStyle = "#FFFFFF";
+  // Sun or Moon
+  if (isDay) {
+    // Sun
+    ctx.fillStyle = "#FFD700";
+    ctx.beginPath();
+    ctx.arc(50, 50, 25, 0, Math.PI * 2);
+    ctx.fill();
+    // Sun rays
+    ctx.strokeStyle = "#FFD700";
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 8; i++) {
+      let angle = (i * Math.PI) / 4;
+      ctx.beginPath();
+      ctx.moveTo(50 + Math.cos(angle) * 30, 50 + Math.sin(angle) * 30);
+      ctx.lineTo(50 + Math.cos(angle) * 40, 50 + Math.sin(angle) * 40);
+      ctx.stroke();
+    }
+  } else {
+    // Moon (grey with craters)
+    ctx.fillStyle = "#A0A0A0";
+    ctx.beginPath();
+    ctx.arc(50, 50, 25, 0, Math.PI * 2);
+    ctx.fill();
+    // Moon craters (darker grey holes)
+    ctx.fillStyle = "#707070";
+    ctx.beginPath();
+    ctx.arc(45, 45, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(55, 52, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(48, 58, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(52, 42, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(58, 48, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  // Awan bergerak (white day, grey night with moonlight shadow)
   clouds.forEach(cloud => {
+    if (isDay) {
+      ctx.fillStyle = "#FFFFFF";
+    } else {
+      // Grey clouds at night
+      ctx.fillStyle = "#606060";
+    }
+    
     // Awan terdiri dari beberapa lingkaran
     ctx.beginPath();
     ctx.arc(cloud.x, cloud.y, cloud.width * 0.3, 0, Math.PI * 2);
     ctx.arc(cloud.x + cloud.width * 0.3, cloud.y, cloud.width * 0.35, 0, Math.PI * 2);
     ctx.arc(cloud.x + cloud.width * 0.6, cloud.y, cloud.width * 0.3, 0, Math.PI * 2);
     ctx.fill();
+    
+    // Moonlight shadow at night
+    if (!isDay) {
+      ctx.fillStyle = "rgba(160, 160, 160, 0.3)";
+      ctx.beginPath();
+      ctx.arc(cloud.x - 5, cloud.y + 5, cloud.width * 0.3, 0, Math.PI * 2);
+      ctx.arc(cloud.x + cloud.width * 0.3 - 5, cloud.y + 5, cloud.width * 0.35, 0, Math.PI * 2);
+      ctx.arc(cloud.x + cloud.width * 0.6 - 5, cloud.y + 5, cloud.width * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
     
     // Gerakkan awan ke kiri (parallax)
     cloud.x -= cloud.speed;
@@ -891,6 +968,27 @@ function updatePipes() {
     if (!p.passed && p.x + 50 < bird.x) {
       score++;
       p.passed = true;
+      
+      // Update high score
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore', highScore);
+      }
+      
+      // Day/night cycle
+      if (isDay && score > 0 && score % 25 === 0 && score !== lastDayChangeScore) {
+        isDay = false;
+        lastDayChangeScore = score;
+      } else if (!isDay && score > 0 && (score - lastDayChangeScore) >= 10) {
+        isDay = true;
+        lastDayChangeScore = score;
+      }
+      
+      // Fireworks every 30 points
+      if (score % 30 === 0 && score !== lastFireworkScore) {
+        lastFireworkScore = score;
+        createFireworks();
+      }
 
       // 🔥 speed naik tiap 10 point
       if (score % 10 === 0) {
@@ -915,6 +1013,42 @@ function drawScore() {
   ctx.fillStyle = "black";
   ctx.font = "20px Arial";
   ctx.fillText("Score: " + score, 10, 30);
+  ctx.fillText("High: " + highScore, 10, 55);
+}
+
+function createFireworks() {
+  for (let i = 0; i < 50; i++) {
+    fireworks.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      vx: (Math.random() - 0.5) * 10,
+      vy: (Math.random() - 0.5) * 10,
+      life: 60,
+      color: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF'][Math.floor(Math.random() * 5)]
+    });
+  }
+}
+
+function updateFireworks() {
+  fireworks.forEach((f, index) => {
+    f.x += f.vx;
+    f.y += f.vy;
+    f.vy += 0.2; // gravity
+    f.life--;
+    
+    if (f.life <= 0) {
+      fireworks.splice(index, 1);
+    }
+  });
+}
+
+function drawFireworks() {
+  fireworks.forEach(f => {
+    ctx.fillStyle = f.color;
+    ctx.globalAlpha = f.life / 60;
+    ctx.fillRect(f.x, f.y, 4, 4);
+    ctx.globalAlpha = 1;
+  });
 }
 
 function loop() {
@@ -926,10 +1060,12 @@ function loop() {
   if (!gameOver) {
     updateBird();
     updatePipes();
+    updateFireworks();
   }
 
   drawPipes();
   drawBird();
+  drawFireworks();
   drawScore();
 
   if (gameOver) {
@@ -953,6 +1089,10 @@ document.addEventListener("keydown", e => {
       pipes = [];
       score = 0;
       speed = 2; // reset speed
+      lastFireworkScore = 0;
+      lastDayChangeScore = 0;
+      isDay = true;
+      fireworks = [];
       gameOver = false;
     }
   }
@@ -971,6 +1111,10 @@ canvas.addEventListener("touchstart", e => {
     pipes = [];
     score = 0;
     speed = 2; // reset speed
+    lastFireworkScore = 0;
+    lastDayChangeScore = 0;
+    isDay = true;
+    fireworks = [];
     gameOver = false;
   }
 });
@@ -986,6 +1130,10 @@ canvas.addEventListener("click", e => {
     pipes = [];
     score = 0;
     speed = 2; // reset speed
+    lastFireworkScore = 0;
+    lastDayChangeScore = 0;
+    isDay = true;
+    fireworks = [];
     gameOver = false;
   }
 });
