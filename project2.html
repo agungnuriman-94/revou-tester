@@ -1,55 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Offline Mode - Flappy Bird</title>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       background: #f0f0f0;
       text-align: center;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 500px;
+    main {
+      max-width: 100%;
+      width: 100%;
       margin: auto;
-      padding: 20px;
+      padding: 10px;
     }
 
-    .info {
+    h1 {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+
+    section {
       background: white;
-      padding: 15px;
+      padding: 12px;
       border-radius: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    section h3 {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+
+    section p {
+      font-size: 0.9em;
+      margin: 5px 0;
     }
 
     canvas {
       border-radius: 10px;
       border: 2px solid #777;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      touch-action: none;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.3em;
+      }
+
+      section {
+        padding: 10px;
+      }
+
+      section h3 {
+        font-size: 1em;
+      }
+
+      section p {
+        font-size: 0.85em;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+<main>
 
   <h1>🛜 You are offline</h1>
 
-  <div class="info">
+  <section>
     <h3>🎮 Cara Bermain</h3>
     <p>Tekan <b>SPASI</b> atau <b>SENTUH LAYAR</b> untuk terbang</p>
     <p>Tabrak = game over</p>
-  </div>
+  </section>
 
   <canvas id="game" width="500" height="600"></canvas>
 
-</div>
+</main>
 
 <script>
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+
+// Responsive canvas sizing
+function resizeCanvas() {
+  const maxWidth = Math.min(500, window.innerWidth - 20);
+  const scale = maxWidth / 500;
+  canvas.style.width = maxWidth + 'px';
+  canvas.style.height = (600 * scale) + 'px';
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 let bird = {
   x: 80,

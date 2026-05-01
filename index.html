@@ -1,67 +1,271 @@
-<html><head>
-	<title> Website Agung</title>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Agung Nur Iman - Front-End Developer</title>
 	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
 		body {
-			background-color: rgb(34, 39, 8);
+			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+			color: #e0e0e0;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			padding: 20px;
+			min-height: 100vh;
+		}
+		
+		main {
+			max-width: 900px;
+			margin: auto;
+			background: linear-gradient(135deg, #2a2a3e 0%, #1f2937 100%);
+			border-radius: 15px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+			overflow: hidden;
+		}
+		
+		header {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 			color: white;
-			font-family: arial,sans-serif;
+			padding: 40px 30px;
+			text-align: center;
 		}
-		.container {
-    max-width: 400px;
-    margin: auto;
+		
+		header h1 {
+			font-size: 2.5em;
+			margin-bottom: 10px;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 		}
-		h1 {
-			color: yellow;
+		
+		header p {
+			font-size: 1.1em;
+			opacity: 0.95;
 		}
-		h2 { 
-			color: cyan;
+		
+		article {
+			padding: 30px;
 		}
+		
+		section {
+			margin-bottom: 35px;
+		}
+		
+		section h2 {
+			color: #8b9aff;
+			font-size: 1.6em;
+			margin-bottom: 15px;
+			padding-bottom: 10px;
+			border-bottom: 3px solid #667eea;
+			display: inline-block;
+		}
+		
+		section p {
+			line-height: 1.8;
+			color: #c0c0c0;
+			margin-bottom: 12px;
+		}
+		
+		aside {
+			background: linear-gradient(135deg, #3a3a4e 0%, #2d3748 100%);
+			padding: 25px;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			border-left: 5px solid #667eea;
+		}
+		
+		aside h3 {
+			color: #a0aeff;
+			margin-bottom: 12px;
+			font-size: 1.3em;
+		}
+		
+		aside p {
+			color: #d0d0d0;
+			line-height: 1.7;
+		}
+		
+		ul {
+			margin-left: 25px;
+			line-height: 2;
+		}
+		
+		ul li {
+			color: #c0c0c0;
+			padding: 5px 0;
+		}
+		
+		nav {
+			margin-bottom: 15px;
+			display: flex;
+			flex-wrap: nowrap;
+			gap: 8px;
+			overflow-x: auto;
+		}
+		
 		button {
-			background-color: rgb(37, 215, 255);
-			color: rgb(35, 35, 37);
-			padding: 5px;
-			margin: 25px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 8px 16px;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 13px;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+			white-space: nowrap;
+			flex-shrink: 0;
 		}
-		hr {
-			border: 2px solid rgb(204, 245, 66);
+		
+		button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 		}
-		a {
-			color: rgb(23, 67, 8);
+		
+		button:active {
+			transform: translateY(0);
+		}
+		
+		button a {
+			color: white;
 			text-decoration: none;
+			display: block;
+		}
+		
+		.linkedin-btn {
+			background: linear-gradient(135deg, #0077b5 0%, #005582 100%);
+			box-shadow: 0 4px 15px rgba(0, 119, 181, 0.4);
+		}
+		
+		.linkedin-btn:hover {
+			box-shadow: 0 6px 20px rgba(0, 119, 181, 0.6);
+		}
+		
+		.emoji {
+			font-size: 1.2em;
+			margin-right: 8px;
+		}
+		
+		footer {
+			background: #1a1a2e;
+			padding: 20px;
+			text-align: center;
+			color: #888;
+			font-size: 0.9em;
+		}
+		
+		/* Mobile responsive */
+		@media (max-width: 768px) {
+			body {
+				padding: 10px;
+			}
+			
+			header {
+				padding: 30px 20px;
+			}
+			
+			header h1 {
+				font-size: 1.8em;
+			}
+			
+			article {
+				padding: 20px;
+			}
+			
+			section h2 {
+				font-size: 1.3em;
+			}
+			
+			nav {
+				flex-wrap: wrap;
+			}
+			
+			button {
+				font-size: 12px;
+				padding: 8px 12px;
+			}
 		}
 	</style>
 </head>
 <body>
-	<div class="container">
-	<h1> Website Agung</h1>
-	<hr>
-	<h2> About Me</h2>
-	<p> 
-		Saya sedang belajar <b>Front-End Developer</b> dari <i>nol</i> <br>
-    agar saya bisa bekerja remote sebagai side job dan ini doa saya agar bisa mencukupi kebutuhan keluarga.
-	</p>	
-<hr>
-<h2>Yang saya Pelajari</h2>
-<ul>
-	<li>HTML</li>
-	<li>CSS</li>
-	<li>JavaScript</li>
-</ul>
-<hr>
-<h2> Hasil Belajar</h2>
-<button> <a href="belajar 1.html" target="_blank">belajar 1 </a>
-</a> </button>
-<button> <a href="list.html" target="_blank">belajar 2 </a>
-</a> </button>
-<button> <a href="project2.html" target="_blank">Project lainya</a>
-</a> </button>
-<button> <a href="project.html" target="_blank">Project koding camp petunjuk </a>
-</a> </button>
-<button> <a href="https://agungnuriman-94.github.io/codingcamp-27apr26-agungni/" target="_blank">Project koding camp ngadi-ngadi </a>
-</a> </button>
-<h2> Link profil</h2>
-<button> <a href="https://www.linkedin.com/in/agung-nur-iman-21a3a687/" target="_blank"> Linkedin</a> </button>
-	 
-	</div>
-
-</body></html>
+	<main>
+		<header>
+			<h1>🚀 Agung Nur Iman</h1>
+			<p>Front-End Developer | Learner | Remote Worker</p>
+		</header>
+		
+		<article>
+			<section>
+				<h2><span class="emoji">👨‍💻</span>About Me</h2>
+				<p>
+					Saya sedang belajar <b>Front-End Developer</b> dari <i>nol</i> agar saya bisa bekerja remote sebagai side job dan ini doa saya agar bisa mencukupi kebutuhan keluarga. <br>
+					<i>I am currently learning <b>Front-End Development</b> from <i>scratch</i> with the goal of working remotely as a side job, as part of my effort to support my family's needs.</i>
+				</p>
+				<br>
+				<p>
+					Dan karena keterbatasan anggaran, saya sedang mencari pengalaman di mana pun, baik melalui AI, bootcamp, maupun pembelajaran mandiri, serta membuat project kecil untuk menguji kemampuan saya. Menurut AI yang saya gunakan, saya adalah: <br>
+					<i>Due to limited financial resources, I am actively seeking experience wherever possible—through AI-assisted learning, bootcamps, or self-learning—and building small projects to test my skills. Based on insights from the AI tools I use, I am:</i>
+				</p>
+			</section>
+			<br>
+			
+			<aside>
+				<h3>✅ Strengths</h3>
+				<p>
+					Front-End Developer with a strong foundation in structured thinking and attention to detail, backed by professional experience in records management, document control, and policy development (including SOP and governance frameworks), enabling the ability to build clean, consistent, and scalable user interfaces with a systematic and accountable approach to code and information structure.
+				</p>
+			</aside>
+			
+			<aside>
+				<h3>⚠️ Areas for Growth</h3>
+				<p>
+					Tends to maintain high standards and strong attention to detail influenced by a background in compliance and structured systems, which can lead to overanalysis or slower iteration, while continuously improving adaptability, prioritization, and agile development practices in fast-paced environments.
+				</p>
+			</aside>
+			
+			<aside>
+				<h3>⚖️ Professional Summary</h3>
+				<p>
+					A transitioning professional into Front-End Development, bringing a unique combination of experience in records management, information governance, and policy-level work (SOP development) with modern web development skills, focused on creating responsive, user-friendly interfaces while applying system thinking, consistency, and data integrity principles to deliver reliable and scalable digital solutions in remote and global environments.
+				</p>
+			</aside>
+			
+			<section>
+				<h2><span class="emoji">📚</span>Yang Saya Pelajari</h2>
+				<ul>
+					<li><b>HTML</b> - Struktur halaman web</li>
+					<li><b>CSS</b> - Styling dan desain</li>
+					<li><b>JavaScript</b> - Interaktivitas dan logika</li>
+				</ul>
+			</section>
+			
+			<section>
+				<h2><span class="emoji">🎯</span>Hasil Belajar</h2>
+				<nav>
+					<button><a href="belajar 1.html" target="_blank">Belajar 1</a></button>
+					<button><a href="list.html" target="_blank">Belajar 2</a></button>
+					<button><a href="project2.html" target="_blank">Project Lainnya</a></button>
+				</nav>
+				<nav>
+					<button><a href="project.html" target="_blank">Project Koding Camp Petunjuk</a></button>
+					<button><a href="https://agungnuriman-94.github.io/codingcamp-27apr26-agungni/" target="_blank">Project Koding Camp Edited</a></button>
+				</nav>
+			</section>
+			
+			<section>
+				<h2><span class="emoji">🔗</span>Link Profil</h2>
+				<br>
+				<button class="linkedin-btn"><a href="https://www.linkedin.com/in/agung-nur-iman-21a3a687/" target="_blank">LinkedIn Profile</a></button>
+			</section>
+		</article>
+		
+		<footer>
+			<p>© 2026 Agung Nur Iman | Terus Belajar & Berkembang 🌱</p>
+		</footer>
+	</main>
+</body>
+</html>
