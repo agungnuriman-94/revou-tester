@@ -1,197 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Agung Nur Iman - Front-End Developer</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-		
-		body {
-			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-			color: #e0e0e0;
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			padding: 20px;
-			min-height: 100vh;
-		}
-		
-		main {
-			max-width: 900px;
-			margin: auto;
-			background: linear-gradient(135deg, #2a2a3e 0%, #1f2937 100%);
-			border-radius: 15px;
-			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-			overflow: hidden;
-		}
-		
-		header {
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			color: white;
-			padding: 40px 30px;
-			text-align: center;
-		}
-		
-		header h1 {
-			font-size: 2.5em;
-			margin-bottom: 10px;
-			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-		}
-		
-		header p {
-			font-size: 1.1em;
-			opacity: 0.95;
-		}
-		
-		article {
-			padding: 30px;
-		}
-		
-		section {
-			margin-bottom: 35px;
-		}
-		
-		section h2 {
-			color: #8b9aff;
-			font-size: 1.6em;
-			margin-bottom: 15px;
-			padding-bottom: 10px;
-			border-bottom: 3px solid #667eea;
-			display: inline-block;
-		}
-		
-		section p {
-			line-height: 1.8;
-			color: #c0c0c0;
-			margin-bottom: 12px;
-		}
-		
-		aside {
-			background: linear-gradient(135deg, #3a3a4e 0%, #2d3748 100%);
-			padding: 25px;
-			border-radius: 10px;
-			margin-bottom: 20px;
-			border-left: 5px solid #667eea;
-		}
-		
-		aside h3 {
-			color: #a0aeff;
-			margin-bottom: 12px;
-			font-size: 1.3em;
-		}
-		
-		aside p {
-			color: #d0d0d0;
-			line-height: 1.7;
-		}
-		
-		ul {
-			margin-left: 25px;
-			line-height: 2;
-		}
-		
-		ul li {
-			color: #c0c0c0;
-			padding: 5px 0;
-		}
-		
-		nav {
-			margin-bottom: 15px;
-			display: flex;
-			flex-wrap: nowrap;
-			gap: 8px;
-			overflow-x: auto;
-		}
-		
-		button {
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			color: white;
-			padding: 8px 16px;
-			border: none;
-			border-radius: 8px;
-			cursor: pointer;
-			font-size: 13px;
-			font-weight: 600;
-			transition: all 0.3s ease;
-			box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-			white-space: nowrap;
-			flex-shrink: 0;
-		}
-		
-		button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-		}
-		
-		button:active {
-			transform: translateY(0);
-		}
-		
-		button a {
-			color: white;
-			text-decoration: none;
-			display: block;
-		}
-		
-		.linkedin-btn {
-			background: linear-gradient(135deg, #0077b5 0%, #005582 100%);
-			box-shadow: 0 4px 15px rgba(0, 119, 181, 0.4);
-		}
-		
-		.linkedin-btn:hover {
-			box-shadow: 0 6px 20px rgba(0, 119, 181, 0.6);
-		}
-		
-		.emoji {
-			font-size: 1.2em;
-			margin-right: 8px;
-		}
-		
-		footer {
-			background: #1a1a2e;
-			padding: 20px;
-			text-align: center;
-			color: #888;
-			font-size: 0.9em;
-		}
-		
-		/* Mobile responsive */
-		@media (max-width: 768px) {
-			body {
-				padding: 10px;
-			}
-			
-			header {
-				padding: 30px 20px;
-			}
-			
-			header h1 {
-				font-size: 1.8em;
-			}
-			
-			article {
-				padding: 20px;
-			}
-			
-			section h2 {
-				font-size: 1.3em;
-			}
-			
-			nav {
-				flex-wrap: wrap;
-			}
-			
-			button {
-				font-size: 12px;
-				padding: 8px 12px;
-			}
-		}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<<<<<<< HEAD
 	<main>
 		<header>
 			<h1>🚀 Agung Nur Iman</h1>
@@ -268,5 +84,71 @@
 			<p>© 2026 Agung Nur Iman | Terus Belajar & Berkembang 🌱</p>
 		</footer>
 	</main>
+=======
+  <header>
+    <h1>Focus Dashboard</h1>
+    <p id="tanggal-waktu" aria-live="polite"></p>
+    <p id="sapaan" aria-live="polite"></p>
+  </header>
+
+  <main>
+    <section aria-labelledby="judul-pengaturan">
+      <h2 id="judul-pengaturan">Pengaturan</h2>
+      <label for="nama-pengguna">Nama Anda</label>
+      <input id="nama-pengguna" type="text" placeholder="Contoh: Agung" maxlength="40">
+      <button id="simpan-nama" type="button">Simpan Nama</button>
+
+      <label class="switch" for="mode-toggle">
+        <input id="mode-toggle" type="checkbox">
+        <span>Mode Gelap</span>
+      </label>
+    </section>
+
+    <section aria-labelledby="judul-timer">
+      <h2 id="judul-timer">Focus Timer</h2>
+      <label for="durasi-menit">Durasi (menit)</label>
+      <input id="durasi-menit" type="number" min="1" max="120" value="25">
+      <p id="tampilan-timer" aria-live="polite">25:00</p>
+      <menu>
+        <li><button id="mulai-timer" type="button">Mulai</button></li>
+        <li><button id="henti-timer" type="button">Henti</button></li>
+        <li><button id="reset-timer" type="button">Reset</button></li>
+      </menu>
+    </section>
+
+    <section aria-labelledby="judul-todo">
+      <h2 id="judul-todo">To-Do List</h2>
+      <label for="input-tugas">Tambah Tugas</label>
+      <input id="input-tugas" type="text" placeholder="Tulis tugas...">
+      <button id="tambah-tugas" type="button">Tambah</button>
+
+      <label for="urutkan-tugas">Urutkan</label>
+      <select id="urutkan-tugas">
+        <option value="baru">Terbaru</option>
+        <option value="lama">Terlama</option>
+        <option value="az">A-Z</option>
+        <option value="selesai">Status Selesai</option>
+      </select>
+
+      <ul id="daftar-tugas"></ul>
+    </section>
+
+    <section aria-labelledby="judul-link">
+      <h2 id="judul-link">Quick Links</h2>
+      <label for="nama-link">Nama Link</label>
+      <input id="nama-link" type="text" placeholder="Contoh: YouTube">
+      <label for="url-link">URL</label>
+      <input id="url-link" type="url" placeholder="https://...">
+      <button id="tambah-link" type="button">Simpan Link</button>
+      <nav id="daftar-link" aria-label="Daftar quick links"></nav>
+    </section>
+  </main>
+
+  <footer>
+    <small>Semua data tersimpan di Local Storage browser Anda.</small>
+  </footer>
+
+  <script src="js/app.js"></script>
+>>>>>>> f53c8575c5eb89ad4039db720ce32b33a313f3f0
 </body>
 </html>
